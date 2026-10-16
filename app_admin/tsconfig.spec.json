@@ -4,11 +4,11 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "types": [
-      "vitest/globals"
+      "jasmine"
     ]
   },
   "include": [
     "src/**/*.d.ts",
     "src/**/*.spec.ts"
-, "src/app/services/trip-data.spec.service.ts"  ]
+  ]
 }

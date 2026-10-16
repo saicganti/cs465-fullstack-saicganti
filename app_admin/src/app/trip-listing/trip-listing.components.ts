@@ -5,6 +5,7 @@ import { TripCardComponent } from '../trip-card/trip-card';
 import { Trip } from '../models/trip';
 import { TripDataService } from '../services/trip-data.service';
 import { Router } from '@angular/router';
+import { Authentication } from '../services/authentication';
 
 @Component({
 selector: 'app-trip-listing',
@@ -23,7 +24,8 @@ message: string = '';
 constructor(
     private TripDataService: TripDataService,
     private router: Router,
-    private changeDetector: ChangeDetectorRef
+    private changeDetector: ChangeDetectorRef,
+    private authenticationService: Authentication
     ) {
     console.log('trip-listing constructor');
     }
@@ -49,6 +51,11 @@ private getStuff(): void {
             console.error('Error retrieving trips:', err);
         }
     });
+}
+
+public isLoggedIn()
+{
+return this.authenticationService.isLoggedIn();
 }
 
 ngOnInit(): void {
