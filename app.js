@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -14,6 +16,21 @@ var handlebars = require('hbs');
 require('./app_api/models/db'); // Register the Trip model with Mongoose
 
 var app = express();
+
+var passport = require('passport');
+require('./app_api/config/passport');
+
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(passport.initialize());
+
+// Catch unauthorized error and create 401
+app.use((err, req, res, next) => {
+if(err.name === 'UnauthorizedError') {
+res
+.status(401)
+.json({"message": err.name + ": " + err.message});
+}
+});
 
 // view engine setup
 app.set('views', path.join(__dirname,'app_server', 'views'));
